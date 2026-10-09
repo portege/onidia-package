@@ -1,0 +1,22 @@
+{
+  "id": "sysusage",
+  "version": "1.0.0",
+  "description": "Report what this machine is doing right now: CPU load, memory use, load average and disk I/O throughput, read straight from /proc. Use when the user asks how busy the machine is, whether something is eating the CPU or RAM, how loaded the system is, or for system stats, performance, or disk usage.",
+  "exec": ["python3", "sysusage.py"],
+  "timeout_ms": 5000,
+  "params": [
+    {
+      "name": "section",
+      "type": "string",
+      "enum": ["all", "cpu", "memory", "load", "io"],
+      "default": "all",
+      "description": "which metric to report; 'all' gives the full four-line report with bar meters, one metric per line (the reply becomes a paged bubble - use brief for a single line)"
+    },
+    {
+      "name": "brief",
+      "type": "bool",
+      "default": "false",
+      "description": "answer on one line instead of the multi-line report; use when the user wants a quick number rather than a breakdown"
+    }
+  ]
+}

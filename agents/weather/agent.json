@@ -1,0 +1,34 @@
+{
+  "id": "weather",
+  "version": "1.0.0",
+  "description": "Look up the current conditions and a short multi-day forecast for any place by name - a city, town, postcode or airport - using Open-Meteo, which needs no API key but does need an internet connection. Use when the user asks what the weather is like somewhere, whether to wear a coat or take an umbrella, how cold or hot it is, or what the next few days will bring: 'what is the weather in Berlin', 'will I need a jacket in Amsterdam tomorrow', 'is it going to rain in Tokyo this week'. Pass the place as the user said it, and add the country for common city names ('Springfield, US'), because a bare name resolves to the single best match and 'Springfield' alone is ambiguous. Use brief for a quick current-temperature answer instead of the full day-by-day report.",
+  "exec": ["python3", "weather.py"],
+  "timeout_ms": 20000,
+  "params": [
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "description": "the place to forecast, exactly as the user named it - 'Amsterdam', 'Berlin, Germany', '1010' (Vienna postcode). Add the country when the city name is shared by several places."
+    },
+    {
+      "name": "days",
+      "type": "int",
+      "default": "3",
+      "description": "how many days of forecast to include, today included; 1 to 7. Keep the default unless the user asks about a specific span - every extra day makes the single reply line longer."
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "enum": ["metric", "imperial"],
+      "default": "metric",
+      "description": "metric = celsius, imperial = fahrenheit. Use imperial only if the user asks, or seems to be in the US; metric is the right default elsewhere."
+    },
+    {
+      "name": "brief",
+      "type": "bool",
+      "default": "false",
+      "description": "answer with just the conditions now and today's range, instead of the full day-by-day report; use when the user wants a quick current temperature rather than a forecast."
+    }
+  ]
+}

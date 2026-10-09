@@ -1,0 +1,22 @@
+{
+  "id": "stock",
+  "version": "1.0.0",
+  "description": "Look up a stock quote and a short price history: the last price and its day change, plus a seven- or thirty-SESSION price chart - a PNG line graph of adjusted closes attached to the reply, with an ASCII sparkline on the OK line - from Yahoo Finance. Needs an internet connection and no API key. The price is delayed about fifteen minutes, so never present it as live - say 'delayed'. Use when the user asks what a stock is at, how it moved today, whether it is up or down over the last week or month, or asks about a company 'stock' or 'shares': 'what is Apple at', 'Tesla price', 'how is Nvidia doing this month'. Pass the symbol exactly as the user said it, ticker preferred - 'AAPL' beats 'Apple' - and use history=none for just the quote, 30d only when the user asks about a month; the 7-session default covers 'this week'. This is a price feed, not advice: it reports numbers and a shape, so do not let it recommend buying or selling anything.",
+  "exec": ["python3", "stock.py"],
+  "timeout_ms": 25000,
+  "params": [
+    {
+      "name": "symbol",
+      "type": "string",
+      "required": true,
+      "description": "the ticker or company, in the user's words - 'AAPL', 'TSLA', 'BMW.DE', or a name like 'Tesla' or 'Apple'. Add the exchange suffix for non-US listings ('BMW.DE'); US tickers resolve bare. A company name resolves through Yahoo search, so pass it unedited and let the agent disambiguate."
+    },
+    {
+      "name": "history",
+      "type": "string",
+      "enum": ["none", "7d", "30d"],
+      "default": "7d",
+      "description": "7d = the last seven trading SESSIONS as an ASCII sparkline with the window change (weekends and holidays are skipped, so '7d' is seven sessions, not seven calendar days); 30d = the last thirty sessions; none = the quote and day change only - no history and no chart image (7d/30d attach a PNG chart as well as the sparkline). Keep the 7d default unless the user asked about a month or explicitly wants just the price."
+    }
+  ]
+}

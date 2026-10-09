@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Onidia Chat
+GenericName=AI Chat Window
+Comment=Gemini-powered chat window with a desktop-pet voice
+Exec=__BIN__/onidia-chat
+Icon=onidia-chat
+Terminal=false
+Categories=Network;X-Chat;
+Keywords=chat;gemini;llm;assistant;ai;onidia;
+StartupNotify=false

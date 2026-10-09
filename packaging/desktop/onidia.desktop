@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Onidia
+GenericName=Desktop Pet
+Comment=A tiny anime companion that lives on your desktop
+Exec=__BIN__/onidia
+Icon=onidia
+Terminal=false
+Categories=Game;
+Keywords=pet;buddy;companion;mascot;desktop;
+StartupNotify=false

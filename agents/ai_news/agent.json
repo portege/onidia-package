@@ -1,0 +1,27 @@
+{
+  "id": "ai_news",
+  "version": "1.0.0",
+  "description": "Fetch the latest news headlines about AI - or about any topic you name - from Google News, falling back to Hacker News. Needs an internet connection and no API key. Use whenever the user asks what is happening in AI, wants the latest headlines, asks what a lab, model or company has announced, or asks for news on a narrower AI subject: 'any AI news today', 'what is new in AI', 'LLM news', 'what has OpenAI announced', 'AI regulation news'. Every headline carries how old it is, and only items from the last week are returned. Use brief for just the single newest headline. This is a news feed, not a search engine: it returns headlines and where they came from, so do not promise the full text of an article.",
+  "exec": ["python3", "ai_news.py"],
+  "timeout_ms": 25000,
+  "params": [
+    {
+      "name": "topic",
+      "type": "string",
+      "default": "artificial intelligence",
+      "description": "what to search for, in the user's words. Keep it to a subject, not a question: 'AI', 'LLM', 'OpenAI', 'AI chips', 'AI regulation'. Omit it only when the user asked for AI news in general."
+    },
+    {
+      "name": "count",
+      "type": "int",
+      "default": "5",
+      "description": "how many headlines to return, 1 to 10. Keep it near 5 unless the user explicitly asks for more or fewer; all of them share one reply line, so a high count makes a long bubble."
+    },
+    {
+      "name": "brief",
+      "type": "bool",
+      "default": "false",
+      "description": "return only the single newest headline instead of the full list; use when the user wants just a quick update rather than a roundup."
+    }
+  ]
+}
