@@ -167,7 +167,7 @@ CFG="$CFGDIR/chat-app.ini"
 
 # 5. bundled agents.
 #
-# These are what make onidia-chat able to drive the pet (pet_control), play media
+# These are what make onidia-chat able to drive the buddy (pet_control), play media
 # and so on. Without them a fresh install has nothing but the built-in story
 # agent, and the model has no way to make onidia act. They go into the SAME
 # directory the app scans first, ~/.config/chat-app/agents.

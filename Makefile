@@ -1,4 +1,4 @@
-# Top-level build for the Onidia desktop pet and the onidia-chat window.
+# Top-level build for the Onidia and the onidia-chat window.
 #
 # Both projects are plain Go and ship no data files: sprites, palettes, fonts
 # and the built-in characters are linked into the binaries, so packaging is
@@ -30,7 +30,7 @@ CONFIG     := onidia-chat/$(DIST)/chat-app.ini
 
 # The agents that ship with the package. onidia-chat discovers them from
 # /opt/onidia/share/agents (the .deb) or ~/.config/chat-app/agents (the
-# tarball installer), so a fresh install can make the pet act, play media and
+# tarball installer), so a fresh install can make Onidia act, play media and
 # so on without anyone installing anything first.
 #
 # _template is excluded on purpose: its manifest parses cleanly as an agent
@@ -180,8 +180,8 @@ package: check dist deb audit
 	@echo
 	@echo 'release $(VERSION) for $(ARCH) is ready in $(DIST)/'
 
-# One package containing BOTH apps. A user installs one thing and gets the
-# pet, the chat window and the config; they were only ever split because they
+# One package containing BOTH apps. A user installs one thing and gets Onidia,
+# the chat window and the config; they were only ever split because they
 # are two Go modules, which is a build detail, not a packaging one.
 #
 # Both binaries land in /opt/onidia so one uninstall is clean, and both get a
@@ -251,7 +251,7 @@ deb:
 		--maintainer "$(MAINTAINER)" \
 		--section games \
 		--homepage https://github.com/portege/onidia \
-		--description "Anime desktop pet (onidia) and AI chat window with its voice (onidia-chat), pure Go and raw X11" \
+		--description "Onidia and AI chat window with its voice (onidia-chat), pure Go and raw X11" \
 		--recommends "$(DEPS_RECOMMENDS)" \
 		--out $(DIST)/deb \
 		--file onidia/onidia:opt/onidia/bin/onidia:0755 \
