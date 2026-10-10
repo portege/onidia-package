@@ -1,24 +1,31 @@
-# This workspace holds independent projects, each with its own repository.
-# Only the SHARED build/release layer lives in this top-level repo:
-#   Makefile, packaging/, agents/, docs/, and the release notes.
-# The apps themselves are nested repos and must never be nested here.
+# onidia-package - the shared build/release layer for the Onidia apps:
+# the Makefile, packaging/, the bundled agents, docs and the release notes.
+#
+# This workspace also holds independent projects, each with its own
+# repository. Those nested repos are listed below and must never be
+# nested inside onidia-package.
+
+# --- Other repositories living in this workspace (each has its own .git) ---
 /onidia/
 /onidia-chat/
 /web/
 /registry/
 
-# Build output (the Makefile writes packages here).
+# --- Local planning / scratch notes - not part of the package ---
+/plan_*.md
+
+# --- Build output (the Makefile writes packages here) ---
 /dist/
 
-# Large binaries, downloaded wheels and loose dev screenshots - not sources.
+# --- Large binaries, downloaded wheels, loose dev screenshots ---
 *.mkv
 *.whl
 /chat_ui_*.png
 
-# OS / editor cruft
-.DS_Store
-*~
-
-# Compiled Python (agents are plain .py; ship sources, not bytecode)
+# --- Compiled Python (agents are plain .py; ship sources, not bytecode) ---
 __pycache__/
 *.pyc
+
+# --- OS / editor cruft ---
+.DS_Store
+*~
