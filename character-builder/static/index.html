@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ONIDIA Character Builder</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>ONIDIA <em>Character Builder</em></h1>
+  <div class="header-controls">
+    <label class="name-label">name
+      <input id="charName" value="mychar" pattern="[a-z][a-z0-9_]*"
+             spellcheck="false" maxlength="32" title="lowercase package name">
+    </label>
+    <button id="btnSample" title="Fill every layer with Onidia herself (characters/onidia), ready to export">Load Onidia</button>
+    <button id="btnSave" title="Download the whole project as JSON">Save</button>
+    <button id="btnLoad" title="Restore a saved project JSON">Load</button>
+    <input type="file" id="fileLoad" accept="application/json,.json" hidden>
+    <label class="name-label">reference
+      <select id="referenceChar" title="Real character rendered by the ONIDIA engine (Go → image) as a tracing guide">
+        <option value="onidia" selected>onidia</option>
+      </select>
+    </label>
+    <button id="btnPreview" class="toggle" title="Hide grid and dimming: show the final sprite">Preview</button>
+    <button id="btnReference" class="toggle active" title="Show the real rendered character behind your strokes as a tracing guide">Reference</button>
+    <button id="btnExport" class="primary">Export Go code →</button>
+  </div>
+</header>
+
+<main>
+  <!-- ── layer stack ─────────────────────────────────────────── -->
+  <aside class="panel left">
+    <h2>Layers <span class="sub">top = drawn last</span></h2>
+    <ul id="layerList"></ul>
+    <p class="hint">The seven layers match the ONIDIA body parts, drawn
+      back&#8209;to&#8209;front: shadow → hair → legs → body → arms → head → face.
+      Hidden layers are left out of the export.</p>
+  </aside>
+
+  <!-- ── canvas ──────────────────────────────────────────────── -->
+  <section class="stage">
+    <canvas id="board" width="448" height="640"></canvas>
+    <div class="status">
+      <span id="statusTool">pen · 4u</span>
+      <span id="statusPos">x –, y –</span>
+      <span id="statusLayer">layer: body</span>
+    </div>
+  </section>
+
+  <!-- ── tools & colours ─────────────────────────────────────── -->
+  <aside class="panel right">
+    <h2>Tool</h2>
+    <div class="toolrow">
+      <button id="toolPen" class="tool active" title="draw on the active layer">✏︎ Pen</button>
+      <button id="toolEraser" class="tool" title="remove strokes on the active layer">⌫ Eraser</button>
+    </div>
+
+    <h2>Brush size <span class="sub" id="widthVal">4u</span></h2>
+    <input type="range" id="brushWidth" min="1" max="24" step="1" value="4">
+
+    <h2>Colour</h2>
+    <div class="colorrow">
+      <input type="color" id="colorPick" value="#2f223e">
+      <input type="text" id="colorHex" value="#2F223E" spellcheck="false" maxlength="9">
+    </div>
+    <div class="swatches" id="swatches"></div>
+
+    <h2>Edit</h2>
+    <div class="toolrow">
+      <button id="btnUndo" title="Ctrl+Z">↶ Undo</button>
+      <button id="btnClearLayer">Clear layer</button>
+      <button id="btnClearAll" title="Erase every layer">Clear all</button>
+    </div>
+
+    <h2>Chatter phrases <span class="sub">mood: text</span></h2>
+    <textarea id="phrases" rows="5" spellcheck="false"
+placeholder="happy: hi there!
+wink: boop!
+sleepy: so sleepy...">happy: hi there!
+wink: boop!</textarea>
+    <p class="hint">Moods: neutral, happy, wink, sad, thinking, anxious,
+      angry, surprised, sleepy, fear, disgust, contempt, confused,
+      skeptical, embarrassed, adore.</p>
+  </aside>
+</main>
+
+<!-- ── export modal ──────────────────────────────────────────── -->
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modalTitle">Generated character</h3>
+      <button id="modalClose">✕</button>
+    </div>
+    <p id="modalInstall" class="install"></p>
+    <pre><code id="modalCode"></code></pre>
+    <div class="toolrow">
+      <button id="btnCopy" class="primary">Copy code</button>
+      <button id="btnDownload">Download .go</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+<script src="sample.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
