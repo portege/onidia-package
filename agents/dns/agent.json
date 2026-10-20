@@ -1,0 +1,26 @@
+{
+  "id": "dns",
+  "version": "1.0.0",
+  "description": "Look up DNS records for a domain through the system's resolver: the IP address (A/AAAA), mail servers (MX), nameservers (NS), canonical name (CNAME), verification or policy strings (TXT), service records (SRV), certificate authority authorization (CAA), zone details (SOA), reverse lookup (PTR), or any other record type by name or number; type=all gives a five-type overview (A, AAAA, MX, NS, TXT) as a small paged report, one record type per page. Use when the user asks what a domain resolves to, which IPs host a site, what its mail or nameservers are, to check DNS records or propagation, or asks for the 'IP address of' a domain: 'what is the IP of example.com', 'MX records for gmail.com', 'dns lookup for github.com', 'reverse lookup 8.8.8.8'. Pass the bare domain ('example.com', not a URL - strip http:// and any path); an IP address as the name switches to a reverse PTR lookup automatically. Needs a reachable DNS server and no API key. The answers are live data - report them as 'currently', and a TTL is the resolver's cache hint, not a guarantee.",
+  "exec": ["python3", "dns.py"],
+  "timeout_ms": 30000,
+  "params": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "the domain to look up, as the user said it - 'example.com', 'www.bbc.co.uk'. An IP address ('8.8.8.8') switches to the reverse (PTR) lookup. Strip schemes and paths from URLs first."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "default": "A",
+      "description": "record type: any IANA mnemonic (A, AAAA, CNAME, NS, MX, TXT, SOA, PTR, SRV, CAA, DS, DNSKEY, ...) or its number; 'all' = a paged overview of A, AAAA, MX, NS and TXT. Keep the A default unless the user named another record or asked for everything."
+    },
+    {
+      "name": "server",
+      "type": "string",
+      "description": "DNS server IP to query instead of the system's own (from /etc/resolv.conf) - '8.8.8.8', '1.1.1.1'. Only when the user names a specific server."
+    }
+  ]
+}
