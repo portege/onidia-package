@@ -1,0 +1,21 @@
+{
+  "id": "traceroute",
+  "version": "1.0.0",
+  "description": "Trace the network path to a host, hop by hop: each router that forwards the packets, its reverse-DNS name when it publishes one, and the round-trip time. Pure stdlib on Linux - UDP probes with the kernel's IP_RECVERR error queue (the trick tracepath(8) uses), so no root, no external traceroute binary, no dependencies. Use when the user asks how packets reach a host, where the latency or a network problem is, which routers or providers are on the way, or whether a host is reachable: 'trace route to 8.8.8.8', 'what path does traffic take to example.com', 'why is 9.9.9.9 slow', 'can you reach my server'. IPv4 only. The answer is one hop per page - tell the user to page through it with the < / > controls. Some routers do not answer ('* no reply'): that is filtered ICMP, not a fault. A trace takes up to about half a minute - do not run it for casual small talk.",
+  "exec": ["python3", "traceroute.py"],
+  "timeout_ms": 55000,
+  "params": [
+    {
+      "name": "host",
+      "type": "string",
+      "required": true,
+      "description": "host name or IPv4 address to trace to - '8.8.8.8', 'example.com'. Pass what the user said, without a scheme or path."
+    },
+    {
+      "name": "max_hops",
+      "type": "int",
+      "default": "20",
+      "description": "hop limit before giving up, 1-40. Keep the default unless the user asks for more; every silent hop costs about a second of waiting."
+    }
+  ]
+}
