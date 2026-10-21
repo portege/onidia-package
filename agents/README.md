@@ -22,6 +22,8 @@ again: `onidia-chat -agents-remove sysusage`.
 | [`weather/`](weather/) | current conditions + a short forecast for a place you name, via Open-Meteo |
 | [`ai_news/`](ai_news/) | the latest headlines on AI (or any topic), via Google News, falling back to Hacker News |
 | [`stock/`](stock/) | quote + 7/30-session history for any ticker, via Yahoo Finance, no key, ASCII sparkline today |
+| [`dns/`](dns/) | any DNS record type for a domain (A, AAAA, MX, NS, TXT, ... by name or number), reverse lookups, `type=all` paged overview - hand-rolled wire client, no key |
+| [`traceroute/`](traceroute/) | hop-by-hop IPv4 route to a host with RTTs and reverse DNS, one hop per page - kernel error queue, so no root and no external tools |
 
 Both network agents need an internet connection, and neither needs an API key —
 which is the whole reason they can live in this folder at all: a downloaded
@@ -56,6 +58,12 @@ formatting more than you would expect. All three of these bite:
    `./onidia-chat/agentctl -dir agents run sysusage section=all` and you get
    one metric out of four. Join with `" | "` instead, and let the bubble
    word-wrap; `weather` and `ai_news` are written that way.
+   **One exception: a raw form-feed byte (`\f`) inside the single OK line is
+   not a newline** — the reader passes it through, and both the chat window
+   (`ui.go splitPages`) and the buddy bubble (`onidia/bubble_page.go
+   paginate`) render it as an explicit page break with `<` `>` controls.
+   `dns` (type=all) and `traceroute` page long output that way, one record
+   type or one hop per page.
 
 3. **A bubble is ~25 characters wide** at the default 456px window — three
    quarters of the window, at 12px per glyph. Design to that, or launch with
